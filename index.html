@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>PocketFlow – Smart Floating Pocket Assistant</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-bubble" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.88.54 3.63 1.48 5.12L2 22l5.12-1.48C8.37 21.46 10.12 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-2.21 0-4-1.79-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.21-1.79 4-4 4z" fill="white"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></symbol>
+  <symbol id="icon-dashboard" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></symbol>
+  <symbol id="icon-clipboard" viewBox="0 0 24 24"><path d="M19 2h-4.18C14.4.84 13.3 0 12 0c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 13.17l6.59-6.59L18 8l-8 8z"/></symbol>
+  <symbol id="icon-pocket" viewBox="0 0 24 24"><path d="M2 2v20h20V2H2zm18 18H4V4h16v16zM6 6h12v2H6V6zm0 4h12v2H6v-2zm0 4h8v2H6v-2z"/></symbol>
+  <symbol id="icon-image" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></symbol>
+  <symbol id="icon-file" viewBox="0 0 24 24"><path d="M6 2c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6zm0 18V4h7v5h5v11H6z"/></symbol>
+  <symbol id="icon-notes" viewBox="0 0 24 24"><path d="M3 18h12v-2H3v2zM3 6v2h18V6H3zm0 7h18v-2H3v2z"/></symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
+  <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></symbol>
+  <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></symbol>
+  <symbol id="icon-delete" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></symbol>
+  <symbol id="icon-share" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></symbol>
+  <symbol id="icon-copy" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></symbol>
+  <symbol id="icon-folder" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></symbol>
+  <symbol id="icon-audio" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></symbol>
+  <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></symbol>
+  <symbol id="icon-download" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></symbol>
+  <symbol id="icon-favorite" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
+  <symbol id="icon-recent" viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></symbol>
+  <symbol id="icon-screenshot" viewBox="0 0 24 24"><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></symbol>
+  <symbol id="icon-notifications" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.93 6 11v5l-2 2v1h16v-1l-2-2z"/></symbol>
+  <symbol id="icon-theme" viewBox="0 0 24 24"><path d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm0-10c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></symbol>
+  <symbol id="icon-history" viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></symbol>
+  <symbol id="icon-drag" viewBox="0 0 24 24"><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></symbol>
+  <symbol id="icon-add" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
+  <symbol id="icon-link" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></symbol>
+  <symbol id="icon-edit" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></symbol>
+  <symbol id="icon-more" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></symbol>
+  <symbol id="icon-arrow-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></symbol>
+  <symbol id="icon-export" viewBox="0 0 24 24"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/></symbol>
+  <symbol id="icon-import" viewBox="0 0 24 24"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z" transform="rotate(180,12,12)"/></symbol>
+  <symbol id="icon-clear" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></symbol>
+  <symbol id="icon-warning" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></symbol>
+  <symbol id="icon-info" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></symbol>
+  <symbol id="icon-grid" viewBox="0 0 24 24"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z"/></symbol>
+  <symbol id="icon-list" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></symbol>
+  <symbol id="icon-save" viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></symbol>
+  <symbol id="icon-rename" viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"/></symbol>
+</svg>
+
+<div id="bubble" class="bubble" title="PocketFlow - Smart Assistant">
+  <svg class="bubble-icon" viewBox="0 0 24 24"><use href="#icon-bubble"/></svg>
+  <span class="bubble-badge" id="bubble-badge">0</span>
+</div>
+
+<div id="panel-overlay" class="panel-overlay"></div>
+
+<div id="panel" class="panel">
+  <div class="panel-header">
+    <div class="panel-header-left">
+      <button class="icon-btn" id="panel-back" style="display:none">
+        <svg viewBox="0 0 24 24"><use href="#icon-arrow-back"/></svg>
+      </button>
+      <h2 class="panel-title">PocketFlow</h2>
+    </div>
+    <div class="panel-header-right">
+      <button class="icon-btn" id="notif-btn" title="Notifications">
+        <svg viewBox="0 0 24 24"><use href="#icon-notifications"/></svg>
+        <span class="badge-dot" id="notif-dot" style="display:none"></span>
+      </button>
+      <button class="icon-btn" id="panel-close" title="Close">
+        <svg viewBox="0 0 24 24"><use href="#icon-close"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="panel-tabs" id="panel-tabs">
+    <button class="tab active" data-tab="dashboard"><svg viewBox="0 0 24 24"><use href="#icon-dashboard"/></svg><span>Dashboard</span></button>
+    <button class="tab" data-tab="recent"><svg viewBox="0 0 24 24"><use href="#icon-clock"/></svg><span>Recent</span></button>
+    <button class="tab" data-tab="clipboard"><svg viewBox="0 0 24 24"><use href="#icon-clipboard"/></svg><span>Clipboard</span></button>
+    <button class="tab" data-tab="pocket"><svg viewBox="0 0 24 24"><use href="#icon-pocket"/></svg><span>Pocket</span></button>
+    <button class="tab" data-tab="screenshots"><svg viewBox="0 0 24 24"><use href="#icon-screenshot"/></svg><span>Shots</span></button>
+    <button class="tab" data-tab="files"><svg viewBox="0 0 24 24"><use href="#icon-folder"/></svg><span>Files</span></button>
+    <button class="tab" data-tab="notes"><svg viewBox="0 0 24 24"><use href="#icon-notes"/></svg><span>Notes</span></button>
+    <button class="tab" data-tab="share"><svg viewBox="0 0 24 24"><use href="#icon-share"/></svg><span>Share</span></button>
+    <button class="tab" data-tab="search"><svg viewBox="0 0 24 24"><use href="#icon-search"/></svg><span>Search</span></button>
+    <button class="tab" data-tab="settings"><svg viewBox="0 0 24 24"><use href="#icon-settings"/></svg><span>Settings</span></button>
+  </div>
+
+  <div class="panel-content" id="panel-content">
+
+    <!-- DASHBOARD -->
+    <div class="tab-content active" id="tab-dashboard">
+      <div class="dashboard-grid">
+        <div class="stat-card"><div class="stat-icon"><svg viewBox="0 0 24 24"><use href="#icon-pocket"/></svg></div><div class="stat-info"><span class="stat-value" id="stat-total">0</span><span class="stat-label">Total Items</span></div></div>
+        <div class="stat-card"><div class="stat-icon"><svg viewBox="0 0 24 24"><use href="#icon-clipboard"/></svg></div><div class="stat-info"><span class="stat-value" id="stat-clipboard">0</span><span class="stat-label">Clipboard</span></div></div>
+        <div class="stat-card"><div class="stat-icon"><svg viewBox="0 0 24 24"><use href="#icon-favorite"/></svg></div><div class="stat-info"><span class="stat-value" id="stat-favorites">0</span><span class="stat-label">Favorites</span></div></div>
+        <div class="stat-card"><div class="stat-icon"><svg viewBox="0 0 24 24"><use href="#icon-image"/></svg></div><div class="stat-info"><span class="stat-value" id="stat-images">0</span><span class="stat-label">Images</span></div></div>
+        <div class="stat-card"><div class="stat-icon"><svg viewBox="0 0 24 24"><use href="#icon-notes"/></svg></div><div class="stat-info"><span class="stat-value" id="stat-notes">0</span><span class="stat-label">Notes</span></div></div>
+        <div class="stat-card"><div class="stat-icon"><svg viewBox="0 0 24 24"><use href="#icon-file"/></svg></div><div class="stat-info"><span class="stat-value" id="stat-files">0</span><span class="stat-label">Files</span></div></div>
+      </div>
+      <div class="section">
+        <h3 class="section-title">Quick Actions</h3>
+        <div class="quick-actions">
+          <button class="quick-btn" id="quick-note"><svg viewBox="0 0 24 24"><use href="#icon-notes"/></svg> Quick Note</button>
+          <button class="quick-btn" id="quick-capture"><svg viewBox="0 0 24 24"><use href="#icon-clipboard"/></svg> Capture</button>
+          <button class="quick-btn" id="quick-upload"><svg viewBox="0 0 24 24"><use href="#icon-upload"/></svg> Upload</button>
+          <button class="quick-btn" id="quick-paste"><svg viewBox="0 0 24 24"><use href="#icon-copy"/></svg> Paste</button>
+        </div>
+      </div>
+      <div class="section">
+        <h3 class="section-title">Recent Activity</h3>
+        <div class="activity-list" id="activity-list">
+          <div class="activity-empty">No recent activity</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECENT -->
+    <div class="tab-content" id="tab-recent">
+      <div class="tab-toolbar">
+        <button class="btn btn-sm" id="recent-refresh"><svg viewBox="0 0 24 24"><use href="#icon-recent"/></svg> Refresh</button>
+      </div>
+      <div class="items-grid" id="recent-items-grid"></div>
+    </div>
+
+    <!-- CLIPBOARD -->
+    <div class="tab-content" id="tab-clipboard">
+      <div class="tab-toolbar">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24"><use href="#icon-search"/></svg>
+          <input type="text" id="clipboard-search" placeholder="Search clipboard...">
+        </div>
+        <button class="btn btn-sm" id="clipboard-capture"><svg viewBox="0 0 24 24"><use href="#icon-clipboard"/></svg> Save</button>
+      </div>
+      <div class="clipboard-list" id="clipboard-list"></div>
+    </div>
+
+    <!-- SMART POCKET -->
+    <div class="tab-content" id="tab-pocket">
+      <div class="tab-toolbar">
+        <button class="btn btn-sm" id="pocket-paste"><svg viewBox="0 0 24 24"><use href="#icon-copy"/></svg> Paste</button>
+        <button class="btn btn-sm" id="pocket-capture"><svg viewBox="0 0 24 24"><use href="#icon-clipboard"/></svg> Capture</button>
+      </div>
+      <div class="drop-zone" id="drop-zone">
+        <svg viewBox="0 0 24 24"><use href="#icon-upload"/></svg>
+        <p>Drop files, images, or text here</p>
+        <span class="drop-hint">or click to add manually</span>
+      </div>
+      <div class="items-grid" id="pocket-items-grid"></div>
+    </div>
+
+    <!-- SCREENSHOTS -->
+    <div class="tab-content" id="tab-screenshots">
+      <div class="tab-toolbar">
+        <label class="btn btn-sm">
+          <svg viewBox="0 0 24 24"><use href="#icon-upload"/></svg> Add Screenshot
+          <input type="file" id="screenshot-upload" accept="image/*" multiple style="display:none">
+        </label>
+      </div>
+      <div class="screenshot-grid" id="screenshot-grid"></div>
+    </div>
+
+    <!-- FILES -->
+    <div class="tab-content" id="tab-files">
+      <div class="tab-toolbar">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24"><use href="#icon-search"/></svg>
+          <input type="text" id="files-search" placeholder="Search files...">
+        </div>
+        <label class="btn btn-sm">
+          <svg viewBox="0 0 24 24"><use href="#icon-upload"/></svg> Upload
+          <input type="file" id="file-upload" multiple style="display:none">
+        </label>
+      </div>
+      <div class="file-list" id="file-list"></div>
+    </div>
+
+    <!-- SHARE -->
+    <div class="tab-content" id="tab-share">
+      <div class="share-section">
+        <h3>Quick Share</h3>
+        <div class="share-actions">
+          <button class="btn" id="share-text"><svg viewBox="0 0 24 24"><use href="#icon-notes"/></svg> Share Text</button>
+          <button class="btn" id="share-image"><svg viewBox="0 0 24 24"><use href="#icon-image"/></svg> Share Image</button>
+          <button class="btn" id="share-file"><svg viewBox="0 0 24 24"><use href="#icon-file"/></svg> Share File</button>
+          <button class="btn" id="share-native"><svg viewBox="0 0 24 24"><use href="#icon-share"/></svg> Native Share</button>
+        </div>
+        <div class="share-input-area">
+          <textarea id="share-text-input" placeholder="Enter text to share..." rows="3"></textarea>
+          <button class="btn btn-primary" id="share-send"><svg viewBox="0 0 24 24"><use href="#icon-share"/></svg> Share Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTES -->
+    <div class="tab-content" id="tab-notes">
+      <div class="tab-toolbar">
+        <button class="btn btn-sm" id="note-new"><svg viewBox="0 0 24 24"><use href="#icon-add"/></svg> New Note</button>
+      </div>
+      <div class="notes-grid" id="notes-grid"></div>
+      <div class="note-editor" id="note-editor" style="display:none">
+        <input type="text" id="note-title" placeholder="Note title..." class="note-title-input">
+        <textarea id="note-body" placeholder="Write your note..." rows="6"></textarea>
+        <div class="note-editor-actions">
+          <button class="btn btn-sm" id="note-save"><svg viewBox="0 0 24 24"><use href="#icon-check"/></svg> Save</button>
+          <button class="btn btn-sm btn-secondary" id="note-cancel"><svg viewBox="0 0 24 24"><use href="#icon-close"/></svg> Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="tab-content" id="tab-search">
+      <div class="search-box search-box-lg">
+        <svg viewBox="0 0 24 24"><use href="#icon-search"/></svg>
+        <input type="text" id="global-search" placeholder="Search all items, notes, clipboard..." autocomplete="off">
+      </div>
+      <div class="search-filters">
+        <label class="filter-chip active" data-filter="all">All</label>
+        <label class="filter-chip" data-filter="text">Text</label>
+        <label class="filter-chip" data-filter="image">Images</label>
+        <label class="filter-chip" data-filter="file">Files</label>
+        <label class="filter-chip" data-filter="note">Notes</label>
+        <label class="filter-chip" data-filter="clipboard">Clipboard</label>
+        <label class="filter-chip" data-filter="link">Links</label>
+      </div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="tab-content" id="tab-settings">
+      <div class="settings-section">
+        <h3>Appearance</h3>
+        <div class="setting-row">
+          <span>Theme</span>
+          <div class="toggle-group">
+            <button class="toggle-btn active" id="theme-light"><svg viewBox="0 0 24 24"><use href="#icon-theme"/></svg> Light</button>
+            <button class="toggle-btn" id="theme-dark"><svg viewBox="0 0 24 24"><use href="#icon-theme"/></svg> Dark</button>
+          </div>
+        </div>
+      </div>
+      <div class="settings-section">
+        <h3>Auto Delete</h3>
+        <div class="setting-row">
+          <span>Auto-delete items after</span>
+          <select id="auto-delete-select">
+            <option value="never">Never</option>
+            <option value="3600000">1 hour</option>
+            <option value="43200000">12 hours</option>
+            <option value="86400000">24 hours</option>
+          </select>
+        </div>
+      </div>
+      <div class="settings-section">
+        <h3>Data Backup</h3>
+        <div class="setting-row">
+          <button class="btn" id="export-backup"><svg viewBox="0 0 24 24"><use href="#icon-export"/></svg> Export Backup</button>
+          <label class="btn">
+            <svg viewBox="0 0 24 24"><use href="#icon-import"/></svg> Import Backup
+            <input type="file" id="import-backup" accept=".json" style="display:none">
+          </label>
+        </div>
+      </div>
+      <div class="settings-section">
+        <h3>Storage</h3>
+        <div class="setting-row">
+          <span>Items in database: <strong id="storage-count">0</strong></span>
+        </div>
+        <div class="setting-row">
+          <span>Estimated size: <strong id="storage-size">0 KB</strong></span>
+        </div>
+      </div>
+      <div class="settings-section">
+        <h3>Danger Zone</h3>
+        <button class="btn btn-danger" id="clear-all"><svg viewBox="0 0 24 24"><use href="#icon-delete"/></svg> Clear All Data</button>
+      </div>
+      <div class="settings-footer">
+        <p>PocketFlow v1.0 | Fully Offline</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="quick-pocket" class="quick-pocket">
+  <div class="quick-pocket-handle"></div>
+  <textarea id="quick-pocket-input" placeholder="Quick paste or type..." rows="3"></textarea>
+  <div class="quick-pocket-actions">
+    <button class="btn btn-sm" id="quick-pocket-save"><svg viewBox="0 0 24 24"><use href="#icon-save"/></svg> Save</button>
+    <button class="btn btn-sm btn-secondary" id="quick-pocket-close"><svg viewBox="0 0 24 24"><use href="#icon-close"/></svg> Close</button>
+  </div>
+</div>
+
+<div id="notifications" class="notifications"></div>
+
+<div id="context-menu" class="context-menu"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
